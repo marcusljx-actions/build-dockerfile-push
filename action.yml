@@ -1,0 +1,51 @@
+name: 'Build Dockerfile + Push to GHCR'
+author: 'marcusljx'
+description: 'Basic building of Dockerfile and push to GitHub Container Repository'
+
+inputs:
+  push:
+    description: 'Whether to actually push. Set to false for workflows where you only need to build but not push'
+    required: false
+    default: 'true'
+  release-tag:
+    description: 'release tag for the container (ie. after the `:`)'
+    required: false
+    default: ${{ steps.ref.outputs.slug }}
+  build-args:
+    description: 'build-args to pass to \'docker build\''
+    required: false
+  labels:
+    description: 'List of custom labels'
+    required: false
+
+outputs:
+  tag:
+    description: "Tag of the built container"
+    value: ghcr.io/${{ github.repository }}:${{ inputs.release-tag }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: ref
+      uses: marcusljx-actions/ref@v1
+
+    - uses: actions/checkout@v2
+    - uses: docker/login-action@v1
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - id: meta
+      uses: docker/metadata-action@v3
+      with:
+        images: ghcr.io/${{ github.repository }}
+        labels: ${{ inputs.labels }}
+
+    - uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      with:
+        context: .
+        push: ${{ inputs.push }}
+        tags: ghcr.io/${{ github.repository }}:${{ inputs.release-tag }}
+        labels: ${{ steps.meta.outputs.labels }}
+        build-args: ${{ inputs.build-args }}
