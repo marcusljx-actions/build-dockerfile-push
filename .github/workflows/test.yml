@@ -16,6 +16,6 @@ jobs:
 
     steps:
       - name: Build Dockerfile
-        uses: marcusljx-actions/build-dockerfile-push@${{ github.ref }}
+        uses: "marcusljx-actions/build-dockerfile-push@${{ github.sha }}"
         with:
           push: false
