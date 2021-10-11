@@ -3,6 +3,9 @@ author: 'marcusljx'
 description: 'Basic building of Dockerfile and push to GitHub Container Repository'
 
 inputs:
+  file:
+    description: 'Path to the Dockerfile. (default `{context}/Dockerfile`)'
+    required: false
   push:
     description: 'Whether to actually push. Set to false for workflows where you only need to build but not push'
     required: false
@@ -41,6 +44,7 @@ runs:
 
     - uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
       with:
+        file: ${{ inputs.file }}
         context: .
         push: ${{ inputs.push }}
         tags: ghcr.io/${{ github.repository }}:${{ inputs.release-tag }}
