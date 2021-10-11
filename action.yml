@@ -10,7 +10,7 @@ inputs:
   release-tag:
     description: 'release tag for the container (ie. after the `:`)'
     required: false
-    default: ${{ steps.ref.outputs.slug }}
+    default: latest
   build-args:
     description: 'build-args to pass to \'docker build\''
     required: false
@@ -26,9 +26,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - id: ref
-      uses: marcusljx-actions/ref@v1
-
     - uses: actions/checkout@v2
     - uses: docker/login-action@v1
       with:
