@@ -1,0 +1,21 @@
+name: Test
+on:
+- push
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build:
+    name: Test build-dockerfile-push Action
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Build Dockerfile
+        uses: marcusljx-actions/build-dockerfile-push@${{ github.ref }}
+        with:
+          push: false
