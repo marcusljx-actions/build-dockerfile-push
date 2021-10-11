@@ -5,6 +5,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  COMMIT_SHA: ${{ github.sha }}
 
 jobs:
   build:
@@ -16,6 +17,6 @@ jobs:
 
     steps:
       - name: Build Dockerfile
-        uses: "marcusljx-actions/build-dockerfile-push@${{ github.sha }}"
+        uses: marcusljx-actions/build-dockerfile-push@${{ env.COMMIT_SHA }}
         with:
           push: false
