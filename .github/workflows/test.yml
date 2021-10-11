@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Build Dockerfile
-        uses: marcusljx-actions/build-dockerfile-push@refs/heads/main
+        uses: marcusljx-actions/build-dockerfile-push
         with:
           file: ./test/Dockerfile
           tags: |
