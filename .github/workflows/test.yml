@@ -18,8 +18,9 @@ jobs:
       - name: Build Dockerfile
         uses: marcusljx-actions/build-dockerfile-push@main
         with:
+          docker-password: ${{ secrets.GITHUB_TOKEN }}
           file: ./test/Dockerfile
-          tags: ${{ env.CONTAINER_TAG }}
+          release-tag: latest
 
   test:
     needs:
