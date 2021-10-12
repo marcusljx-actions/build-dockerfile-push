@@ -1,8 +1,7 @@
 name: Test Workflow
 on:
   push:
-    branches:
-      - main
+    branches: ['main']
 
 env:
   CONTAINER_TAG: ghcr.io/${{ github.repository }}:latest
