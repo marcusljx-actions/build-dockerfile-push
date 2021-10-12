@@ -15,7 +15,7 @@ inputs:
     required: false
     default: latest
   build-args:
-    description: 'build-args to pass to \'docker build\''
+    description: 'build-args to pass to "docker build"'
     required: false
   labels:
     description: 'List of custom labels'
