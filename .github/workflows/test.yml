@@ -4,6 +4,7 @@ on:
     branches: ['main']
 
 env:
+  CONTAINER_REPO: ghcr.io
   CONTAINER_TAG: ghcr.io/${{ github.repository }}:latest
 
 jobs:
@@ -35,7 +36,7 @@ jobs:
       - name: GitHub CR login
         uses: docker/login-action@v1
         with:
-          registry: ${{ env.GITHUB_CR }}
+          registry: ${{ env.CONTAINER_REPO }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
