@@ -20,8 +20,7 @@ jobs:
         uses: marcusljx-actions/build-dockerfile-push@main
         with:
           file: ./test/Dockerfile
-          tags: |
-            ${{ env.CONTAINER_TAG }}
+          tags: ${{ env.CONTAINER_TAG }}
 
   test:
     needs:
